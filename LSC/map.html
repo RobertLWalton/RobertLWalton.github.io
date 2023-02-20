@@ -33,7 +33,6 @@ if ( ! 'geolocation' in navigator )
 {
     alert ( 'Geolocation NOT Available' );
 
-    alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
     window.location.assign ( 'https://trails.actonma.gov/map/' );
 }
 
@@ -54,7 +53,6 @@ function storePosition ( position )
 	+ ',%22y%22:%22' + y + '%22'
 	+ '}]';
 
-    alert ( 'Redirecting To: ' + src );
     window.location.assign ( src );
 }
 
@@ -62,7 +60,6 @@ function positionError ()
 {
     alert ( 'Position Not Available' );
 
-    alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
     window.location.assign ( 'https://trails.actonma.gov/map/' );
 }
 
