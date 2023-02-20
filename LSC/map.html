@@ -12,9 +12,10 @@ pre.inline {
 <h1>Bob Walton's Acton Map Page</h1>
 
 <script>
-var x = null;
-var y = null;
-zoom = '15.25';
+
+var x;
+var y;
+let zoom = '15.25';
 
 if ( ! 'geolocation' in navigator ) alert ( 'Geolocation NOT Available' );
 
@@ -22,8 +23,8 @@ navigator.geolocation.getCurrentPosition ( storePosition, positionError );
 
 function storePosition ( position )
 {
-    x = position.coords.longitude;
-    y = position.coords.latitude;
+    let x = position.coords.longitude;
+    let y = position.coords.latitude;
 }
 
 function positionError ()
@@ -31,7 +32,7 @@ function positionError ()
     alert ( 'Position Not Available' );
 }
 
-src = 'trails.actonma.gov/map/'
+let src = 'trails.actonma.gov/map/'
     + '?zoom=' + zoom
     + '&lng=' + x
     + '&lat=' + y
