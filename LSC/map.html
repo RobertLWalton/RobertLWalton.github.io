@@ -27,8 +27,6 @@ if ( ! 'geolocation' in navigator ) alert ( 'Geolocation NOT Available' );
 
 navigator.geolocation.getCurrentPosition ( storePosition, positionError );
 
-window.location.assign ( 'https://trails.actonma.gov/map/' )
-
 function storePosition ( position )
 {
     let x = position.coords.longitude;
@@ -43,7 +41,8 @@ function storePosition ( position )
 	+ ',%22y%22:%22' + y + '%22'
 	+ '}]';
 
-    window.location.assign ( src )
+    alert ( src );
+    window.location.assign ( src );
 }
 
 function positionError ()
