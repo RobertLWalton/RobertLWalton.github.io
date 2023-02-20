@@ -29,7 +29,13 @@ var x;
 var y;
 let zoom = '15.25';
 
-if ( ! 'geolocation' in navigator ) alert ( 'Geolocation NOT Available' );
+if ( ! 'geolocation' in navigator )
+{
+    alert ( 'Geolocation NOT Available' );
+
+    alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
+    window.location.assign ( 'https://trails.actonma.gov/map/' );
+}
 
 navigator.geolocation.getCurrentPosition
     ( storePosition, positionError );
@@ -55,10 +61,10 @@ function storePosition ( position )
 function positionError ()
 {
     alert ( 'Position Not Available' );
-}
 
-alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
-window.location.assign ( 'https://trails.actonma.gov/map/' );
+    alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
+    window.location.assign ( 'https://trails.actonma.gov/map/' );
+}
 
 </script>
 </body>
