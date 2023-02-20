@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+<!--
+File:	LSC/map.html
+Author:	Bob Walton ( walton@acm.org )
+Date:	Mon Feb 20 07:01:43 EST 2023
+-->
+
 <head>
 
 <meta http-equiv="Cache-Control"
@@ -25,7 +31,8 @@ let zoom = '15.25';
 
 if ( ! 'geolocation' in navigator ) alert ( 'Geolocation NOT Available' );
 
-navigator.geolocation.getCurrentPosition ( storePosition, positionError );
+navigator.geolocation.getCurrentPosition
+    ( storePosition, positionError );
 
 function storePosition ( position )
 {
@@ -41,7 +48,7 @@ function storePosition ( position )
 	+ ',%22y%22:%22' + y + '%22'
 	+ '}]';
 
-    alert ( src );
+    alert ( 'Redirecting To: ' + src );
     window.location.assign ( src );
 }
 
@@ -49,6 +56,9 @@ function positionError ()
 {
     alert ( 'Position Not Available' );
 }
+
+alert ( 'Redirecting To: https://trails.actonma.gov/map/' );
+window.location.assign ( 'https://trails.actonma.gov/map/' );
 
 </script>
 </body>
