@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+pre.inline {
+    display: inline-block;
+    color: green;
+}
+</style>
+</head>
+<body>
+<h1>Bob Walton's Acton Map Page</h1>
+Location x = <pre class='inline' id='x'>TBD</pre>
+         y = <pre class='inline' id='y'>TBD</pre> 
+
+<script>
+if ( ! 'geolocation' in navigator ) alert ( 'Geolocation NOT Available' );
+
+var x = document.getElementById ( 'x' );
+var y = document.getElementById ( 'y' );
+
+navigator.geolocation.getCurrentPosition ( showPosition, positionError );
+
+function showPosition ( position )
+{
+    x.innerHTML = position.coords.longitude;
+    y.innerHTML = position.coords.latitude;
+}
+
+function positionError ()
+{
+    alert ( 'Position Not Available' );
+}
+
+</script>
+</body>
+</html>
+
