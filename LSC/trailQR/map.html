@@ -3,7 +3,7 @@
 <!--
 File:	LSC/trailQR/map.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Tue Feb 21 06:16:22 EST 2023
+Date:	Tue Feb 21 14:50:49 EST 2023
 
 Notes:
 
@@ -66,10 +66,13 @@ function area_loaded ()
 	    console.log ( locations[i] );
 	    let button = document.createElement('button');
 	    button.innerHTML = locations[i];
+	    button.style.fontSize = '300%';
+	    button.style.width = '8em';
+	    button.dataset.locationName = locations[i];
 	    button.addEventListener
 	        ( 'click',
-		  function ()
-		  { load_location ( locations[i] ) } )
+		  function (event)
+		  { load_location ( event.currentTarget.dataset.locationName ) } )
 	    buttons.appendChild ( button );
 	}
     }
