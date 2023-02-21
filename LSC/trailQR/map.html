@@ -45,11 +45,8 @@ script.setAttribute('src',area_name + '.js');
 script.setAttribute('type','text/javascript');
 script.setAttribute('async',false);
 document.body.appendChild(script);
-
-</script>
-
-<script>
-console.log ( eval(area_name) );
+script.addEventListener('load',
+    () => { console.log(eval(area_name) });
 </script>
 
 </body>
