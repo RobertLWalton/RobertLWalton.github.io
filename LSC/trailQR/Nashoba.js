@@ -1,6 +1,6 @@
 // File:	Nashoba.js
 // Author:	Bob Walton (walton@acm.org)
-// Date:	Tue Feb 21 03:55:03 EST 2023
+// Date:	Tue Feb 21 08:42:17 EST 2023
 
 // R and B trails are numbered clockwise from Wheeler Road.
 //
@@ -26,7 +26,17 @@ const Nashoba = {
 
 YW: "https://trails.actonma.gov/map/?zoom=15.36&lng=-71.405120&lat=42.512319&m=[{%22t%22:%22You%20Are%20Here%20(YW)%22,%22x%22:%22-71.405095%22,%22y%22:%2242.513353%22}]",
 
-YR1S: "https://trails.actonma.gov/map/?zoom=15.36&lng=-71.405120&lat=42.512319&m=[{%22t%22:%22You%20Are%20Here%20(YR1S)%22,%22x%22:%22-71.404560%22,%22y%22:%2242.512220%22}]"
+YR1S: "https://trails.actonma.gov/map/?zoom=15.36&lng=-71.405120&lat=42.512319&m=[{%22t%22:%22You%20Are%20Here%20(YR1S)%22,%22x%22:%22-71.404560%22,%22y%22:%2242.512220%22}]",
+
+YR2W: "https://trails.actonma.gov/map/?zoom=15.00&lng=-71.404211&lat=42.510165&m=[{%22t%22:%22You%20Are%20Here%20(YR2W)%22,%22x%22:%22-71.404799%22,%22y%22:%2242.509835%22}]",
+
+YG1W: "https://trails.actonma.gov/map/?zoom=16.07&lng=-71.406358&lat=42.508161&m=[{%22t%22:%22You%20Are%20Here%20(YG1W)%22,%22x%22:%22-71.406837%22,%22y%22:%2242.508161%22}]",
+
+YG2N: "https://trails.actonma.gov/map/?zoom=16.07&lng=-71.406730&lat=42.506798&m=[{%22t%22:%22You%20Are%20Here%20(YG2N)%22,%22x%22:%22-71.407515%22,%22y%22:%2242.507069%22}]",
+
+YG2S: "https://trails.actonma.gov/map/?zoom=16.07&lng=-71.406873&lat=42.505777&m=[{%22t%22:%22You%20Are%20Here%20(YG2S)%22,%22x%22:%22-71.408289%22,%22y%22:%2242.506122%22}]",
+
+
 
 };
 
