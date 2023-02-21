@@ -3,7 +3,7 @@
 <!--
 File:	LSC/trailQR/map.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Tue Feb 21 03:54:49 EST 2023
+Date:	Tue Feb 21 06:16:22 EST 2023
 
 Notes:
 
@@ -27,12 +27,26 @@ Notes:
 </head>
 <body>
 
+<div id='buttons'>
+</div>
+
 
 <script>
+
+let buttons = document.getElementById ( 'buttons' );
 
 let args = window.location.search.substr(1).split('-');
 let area_name = args[0];
 let location_name = args[1];
+
+let script = document.createElement('script');
+script.src = area_name + '.js';
+script.type = 'text/javascript';
+script.async = false;
+document.body.appendChild(script);
+script.addEventListener('load', area_loaded );
+script.addEventListener('error',
+    () => { alert ( area_name + ' Not Found' ) });
 
 function area_loaded ()
 {
@@ -42,24 +56,39 @@ function area_loaded ()
         alert ( 'bad ' + area_name + '.js file' );
 	return;
     }
-    let area = eval ( area_name );
-    let url = area[location_name];
-    if ( url == undefined )
+    area = eval ( area_name );
+
+    if ( location_name == undefined )
     {
-        alert ( 'bad location name ' + location_name +
-	        ' in ' + area_name );
-	return;
+	let locations = Object.keys ( area );
+	for ( i in locations )
+	{
+	    console.log ( locations[i] );
+	    let button = document.createElement('button');
+	    button.innerHTML = locations[i];
+	    button.addEventListener
+	        ( 'click',
+		  function ()
+		  { load_location ( locations[i] ) } )
+	    buttons.appendChild ( button );
+	}
     }
-    window.location.assign ( url );
+    else
+	load_location  ( location_name );
+
+    function load_location ( location_name )
+    {
+	let url = area[location_name];
+	if ( url == undefined )
+	{
+	    alert ( 'bad location name ' + location_name +
+		    ' in ' + area_name );
+	    return;
+	}
+	window.location.assign ( url );
+    }
 }
-let script = document.createElement('script');
-script.src = area_name + '.js';
-script.type = 'text/javascript';
-script.async = false;
-document.body.appendChild(script);
-script.addEventListener('load', area_loaded );
-script.addEventListener('error',
-    () => { alert ( area_name + ' Not Found' ) });
+
 </script>
 
 </body>
