@@ -3,9 +3,13 @@
 <!--
 File:	LSC/trailQR/map.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Tue Feb 21 02:11:23 EST 2023
+Date:	Tue Feb 21 03:54:49 EST 2023
 
 Notes:
+
+* Takes and argument of form ?AREA-LOCATION.  Loads
+  'AREA.js' and expects that to define an object named
+  AREA.  Redirects to AREA[LOCATION].
 
 * Servers such as github override the <meta> stuff, making
   it inoperative so you must manually clear the cache
@@ -20,33 +24,33 @@ Notes:
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
-<style>
-strong.red {
-    color: red;
-}
-</style>
-
 </head>
 <body>
 
 
 <script>
 
-console.log ( window.location.search );
-
 let args = window.location.search.substr(1).split('-');
-console.log ( args );
 let area_name = args[0];
 let location_name = args[1];
-console.log ( area_name );
-console.log ( location_name );
 
 function area_loaded ()
 {
+    try {
+	eval ( area_name );
+    } catch(e) {
+        alert ( 'bad ' + area_name + '.js file' );
+	return;
+    }
     let area = eval ( area_name );
-    console.log ( area );
     let url = area[location_name];
-    console.log ( url );
+    if ( url == undefined )
+    {
+        alert ( 'bad location name ' + location_name +
+	        ' in ' + area_name );
+	return;
+    }
+    window.location.assign ( url );
 }
 let script = document.createElement('script');
 script.src = area_name + '.js';
