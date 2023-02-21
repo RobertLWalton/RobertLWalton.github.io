@@ -40,13 +40,22 @@ let area_name = args[0];
 let location_name = args[1];
 console.log ( area_name );
 console.log ( location_name );
+
+function area_loaded ()
+{
+    let area = eval ( area_name );
+    console.log ( area );
+    let url = area[location_name];
+    console.log ( url );
+}
 let script = document.createElement('script');
-script.setAttribute('src',area_name + '.js');
-script.setAttribute('type','text/javascript');
-script.setAttribute('async',false);
+script.src = area_name + '.js';
+script.type = 'text/javascript';
+script.async = false;
 document.body.appendChild(script);
-script.addEventListener('load',
-    () => { console.log(eval(area_name)) });
+script.addEventListener('load', area_loaded );
+script.addEventListener('error',
+    () => { alert ( area_name + ' Not Found' ) });
 </script>
 
 </body>
