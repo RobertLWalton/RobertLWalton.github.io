@@ -3,7 +3,20 @@
 <!--
 File:	LSC/map.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Mon Feb 20 11:28:56 EST 2023
+Date:	Mon Feb 20 19:08:58 EST 2023
+
+Notes:
+
+* This must be served by https; browsers will not allow
+  http pages to read location.
+
+* Servers such as github override the <meta> stuff, making
+  it inoperative so you must manually clear the cache
+  when testing after an update.
+
+* Options to getCurrentPosition are required to get
+  any kind of accuracy at all.
+
 -->
 
 <head>
@@ -13,10 +26,18 @@ Date:	Mon Feb 20 11:28:56 EST 2023
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
 
+<style>
+strong.red {
+    color: red;
+}
+</style>
+
 </head>
 <body>
 
-<h1>Please Wait<br>Determining Location</h1>
+<h1>Please Wait<br>
+    Determining <strong class='red'>Approximate</strong>Location</h1>
+<h1>Expect Errors of 100ft to 300ft</h1>
 
 <script>
 
@@ -24,7 +45,7 @@ const zoom = '15.25';
 
 const options = {
   enableHighAccuracy: true,
-  timeout: 10000,
+  timeout: 20000,
   maximumAge: 0
 };
 
@@ -47,7 +68,7 @@ function storePosition ( position )
 	+ '?zoom=' + zoom
 	+ '&lng=' + x
 	+ '&lat=' + y
-	+ '&m=[{%22t%22:%22You%20Are%20Here%22'
+	+ '&m=[{%22t%22:%22You%20Are%20Near%20Here%22'
 	+ ',%22x%22:%22' + x + '%22'
 	+ ',%22y%22:%22' + y + '%22'
 	+ '}]';
