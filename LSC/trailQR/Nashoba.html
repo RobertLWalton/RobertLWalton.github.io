@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<!--
+File:	LSC/trailQR/Nashoba.html
+Author:	Bob Walton ( walton@acm.org )
+Date:	Wed Feb 22 13:17:44 EST 2023
+-->
+
+<head>
+<style>
+p {
+    font-size:150%;
+}
+button {
+    font-size: 300%;
+    color: green;
+    background-color: yellow;
+}
+</style>
+</head>
+<body>
+
+<h1>Nashoba Conservation Area</h1>
+
+<p>
+After accessing the interactive map below, you should immediately
+press the locator button (looks something like the target &target;)
+in the lower right corner of the map.  A blue dot will appear and move
+(sometimes slowly) to your location.
+
+<p>
+Proceed to either of:
+<br>
+<form>
+<button type='button' onclick='interactive_trail_map()'>
+Interactive Trail Map
+</button>
+<button type="submit"
+        formaction="https://trails.actonma.gov/trail-through-time/"
+	formmethod="get">
+Trail Through Time Information
+</button>
+</form>
+
+<script>
+// Formaction cannot pass arguments so we need to use this.
+//
+function interactive_trail_map ()
+{
+    console.log ( 'CLICKED' );
+    window.location.assign
+        ( "https://trails.actonma.gov/map/" +
+	  "?zoom=14.41&lng=-71.407893&lat=42.507677&m=[]" );
+}
+</script>
+
+
+</body>
+</html>
+
+
