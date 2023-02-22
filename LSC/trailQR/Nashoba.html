@@ -3,7 +3,7 @@
 <!--
 File:	LSC/trailQR/Nashoba.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Wed Feb 22 13:17:44 EST 2023
+Date:	Wed Feb 22 15:58:07 EST 2023
 -->
 
 <head>
@@ -11,10 +11,16 @@ Date:	Wed Feb 22 13:17:44 EST 2023
 p {
     font-size:150%;
 }
+form.center {
+    text-align: center;
+}
 button {
     font-size: 300%;
     color: green;
     background-color: yellow;
+    display: inline-block;
+    margin-top: 0.4in;
+    border-radius: 5px;
 }
 </style>
 </head>
@@ -30,11 +36,12 @@ in the lower right corner of the map.  A blue dot will appear and move
 
 <p>
 Proceed to either of:
-<br>
-<form>
+<p>
+<form class='center'>
 <button type='button' onclick='interactive_trail_map()'>
 Interactive Trail Map
 </button>
+<br>
 <button type="submit"
         formaction="https://trails.actonma.gov/trail-through-time/"
 	formmethod="get">
