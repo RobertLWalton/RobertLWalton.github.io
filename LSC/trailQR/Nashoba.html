@@ -3,7 +3,7 @@
 <!--
 File:	LSC/trailQR/Nashoba.html
 Author:	Bob Walton ( walton@acm.org )
-Date:	Wed Feb 22 16:14:58 EST 2023
+Date:	Wed Feb 22 20:01:55 EST 2023
 -->
 
 <head>
@@ -11,18 +11,21 @@ Date:	Wed Feb 22 16:14:58 EST 2023
 p {
     font-size:150%;
 }
-form.center {
-    text-align: center;
-}
-button {
+div.button {
     padding: 0.2in;
     font-size: 300%;
     color: green;
     background-color: yellow;
     display: inline-block;
-    margin-top: 0.4in;
-    border-radius: 5px;
+    margin-top: 0.6in;
+    border-radius: 0.2in;
+    border: inset red 20px;
 }
+div.center {
+    text-align: center;
+    display: block;
+}
+
 </style>
 </head>
 <body>
@@ -33,37 +36,33 @@ button {
 After accessing the interactive map below, you should immediately
 press the locator button (looks something like the target &target;)
 in the lower right corner of the map.  A blue dot will appear and move
-(sometimes slowly) to your location.
+(often slowly) to your location.  It will then track your
+location as long as your screen is activated.
 
 <p>
-Proceed to either of:
-<p>
-<form class='center'>
-<button type='button' onclick='interactive_trail_map()'>
-Interactive Trail Map
-</button>
-<br>
-<button type="submit"
-        formaction="https://trails.actonma.gov/trail-through-time/"
-	formmethod="get">
-Trail Through Time Information
-</button>
-</form>
+Proceed to one of:
+<div class='center'>
 
-<script>
-// Formaction cannot pass arguments so we need to use this.
-//
-function interactive_trail_map ()
-{
-    console.log ( 'CLICKED' );
-    window.location.assign
-        ( "https://trails.actonma.gov/map/" +
-	  "?zoom=14.41&lng=-71.407893&lat=42.507677&m=[]" );
-}
-</script>
+    <a href="https://trails.actonma.gov/map/?zoom=14.41&lng=-71.407893&lat=42.507677&m=[]">
+    <div class='button'>Interactive Trail Map</div>
+    </a>
 
+    <br>
+
+    <a href="https://trails.actonma.gov/trail-through-time/">
+    <div class='button'>Trail Through Time Information</div>
+    </a>
+
+    <br>
+
+    <a href="https://trails.actonma.gov/nashoba-brook/">
+    <div class='button'>Nashoba Brook Conservation Area Information</div>
+    </a>
+
+</div>
 
 </body>
 </html>
+
 
 
