@@ -1,0 +1,104 @@
+LSC Map Mount Instructions
+----------------------------------------------------------------------
+Mon Nov 20 03:30:13 EST 2023				walton@acm.org
+
+The Map Mount is:
+    10x2 dimensional pressure-treated lumber cut to 16" nominal length,
+    with two centered 3/8" mounting holes exactly 13" apart, painted
+    with brown Cabot Solid Acrylic Stain.  The board weight is 4.29 lb
+    if the lumber is pressure treated Southern Yellow Pine.  Also see
+    Map Board Manufacture below.
+
+Recommended Mounting Fasteners:
+    3/8" lag bolt, length 3", 3 1/2", or 4" hot dipped galvanized
+    3/8" washer, hot dipped galvanized
+    3/8" lock washer, hot dipped galvanized
+
+Recommended Mounting Method:
+    Use just the top mounting hole.  Drill a lead hole first to the
+    depth that the lag screw will penetrate the tree (1 1/2" - 2").  Drill
+    sizes are 3/16" for evergreen (soft wood) trees and 1/4" for
+    deciduous (hard wood) trees.
+
+    Use 3 1/2" or 4" long bolts unless tree bark is thin.
+
+    Use a regular washer next to the board and a lock washer between
+    the regular washer and the bolt head.  Tighten bolt so lock washer
+    is only very slightly compressed.  This will allow for 1 year
+    typical tree growth (1/14" to 1/10"), the difference between a
+    slightly compressed and a fully compressed lock washer.  Check and
+    adjust once or twice a year.  Note that the lock washer is not used
+    as it normally would be, but is instead used as a spring.
+
+Tools:
+	cordless screwdriver/drill
+	1/4" drill bit (for 2" long 3/8" lag bolt lead hole)
+	3/16" drill bit (for 2" long 3/8" lag bolt lead hole)
+	9/16" bolt magnetic driver bit (for 3/8" lag bolts)
+	9/16" ratcheting combination wrench (for 3/8" lag bolts)
+
+Notes:
+  * The board is about 4 lb with a center of gravity 6.5" below the
+    top mounting hole.  Pendulum action is resisted by (1) the lock
+    washer slightly pressing the board into the tree, (2) friction
+    between the lag bolt shank and the sides of the wooden mounting
+    hole, but this may be unreliable, or (3) putting a second lag bolt
+    through the bottom hole under the map in the unlikely case that
+    all else fails.
+
+Map Board Manufacture:
+---------------------
+
+    Cut boards from 2x10 pressure treated wood.  Avoid knots on sides
+    of boards and in 3"x3" area at top and bottom where mounting holes
+    will be.  One side of board should NOT have knots where map
+    fasteners might be placed around perimeter of laminated map.
+
+    Use a drill block or drill press to keep the two 3/8" holes
+    perpendicular to the surface of the board.  Sand corners and
+    edges, and paint.
+
+
+Some Data That Might be Useful for Evaluation of Design:
+-------------------------------------------------------
+
+The screw length should account for 1 1/2" map board thickness,
+1/2" bark and cambium layer (evergreen), 1/2" growth allowance
+(includes washers), 1/4" bolt tip taper, total 2 3/4".  This
+indicates that 3" bolts are too short unless bark is thin.
+
+The board weight is about 1/8 x 3/4 x 4/3 = 1/8 cu ft x 34.34 lb/cu ft
+(Southern Yellow Pine) = 4.49lb.
+
+A 100 mph wind on the 3/4 x 4/3 = 1 sq ft face of the board generates
+a force of 114 Newtons ~ 26 lb.  A 100 mph wind on the 1/8 x 4/3 =
+1/6 sq foot side of the board generates about 4.33 lb.
+
+NDS gives some guidance on the situation: see
+
+    https://awc.org/codes-standards/publications/nds-2018
+    Chapter 12: Dowel-Type Fasteners
+
+Wood strength and hardness are measured by wood specific gravity G,
+Table 12.3.3A.  For our kinds of trees, we have evergreen trees
+G <= 0.41 (Eastern Spruce) and deciduous trees G >= 0.58 (Maple).
+Our softest wood is G = 0.36 (Eastern White Pine).
+
+Section 12.1.4 specifies lead hole sizes.
+
+Table 12.2.A gives withdraw forces tolerated, which for our softest
+wood (G = 0.36) is 186 lb per inch, so if the lag screw is embedded
+in 1/2" of wood, the NDS withdraw force tolerated would be 93 lb.
+
+To calculate NDS tolerated vertical sheer load we use the equations
+of Table 12.3.1A with Fes set to infinity, and for short values of lm,
+in our case 1/2", equation Im dominates.  As Rd <= 4, we have
+Z = 1/4 x 3/8 x 1/2 x Fem = 3/64 x Fem, where Fem is F|| from Table
+12.3.3, which for G = 0.36 is 4050 lb/sq-in, so the tolerated vertical
+sheer is about (3/64)x4050 ~ 190 lb.
+
+NDS is for kiln-dried wood with 19% moisture, and not for green wood,
+but NDS has a large safety factor (x 3) that we do not need.
+
+Bolts could be 3/8" or 1/4": both are mechanically sound.  Map board
+need not be pressure-treated and could be Spruce Pine Fir.
