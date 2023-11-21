@@ -1,0 +1,36 @@
+Robbins Mill Boardwalks
+-----------------------
+walton@acm.org
+
+Of the 3 boardwalks in Robbins Mill East, one (Boardwalk 3 below) requires
+that its water channel be dug out every Fall.
+
+The boardwalks are located here:
+
+trails.actonma.gov/map/?zoom=16.11&lng=-71.396411&lat=42.510569&m=[
+{"t":"Boardwalk%201","x":"-71.397997","y":"42.511218"},
+{"t":"Boardwalk%202","x":"-71.398335","y":"42.510367"},
+{"t":"Boardwalk%203","x":"-71.397291","y":"42.510140"}]
+
+There are NO boardwalks in Robbins Mill West.
+
+The original boardwalks were likely constructed in 2013, when the trails
+were made.  Boardwalk 2 has screws attaching treads and has likely been
+rebuilt; boardwalks 1 and 3 have nails.  All 3 boardwalks have 4x6
+stringers.  Boardwalks 2 and 3 have longer than 8 foot sections, but
+none longer than 10 feet.
+
+Boardwalk 3 has two 10 foot sections, and the stream passes under one
+of these.  The bottoms of the stringers on both sides of this section
+are typically 1/4 inch under water.  This section appears to have collapsed
+1-2 inches.  Mud and leaves build up on the upstream side of the section,
+and block passage of water under the section.  This can cause flooding of
+the boardwalk, and in Winter can cause icing of the boardwalk.
+
+The short-term remedy is to dig out the mud and leaves every Fall.
+
+Boardwalk 3 could be modified.  It has one sill between the sections.
+This sill might be raised, and the section under which the stream passes
+might be cut in two and a second sill added to raise the strings under
+which water passes.
+
