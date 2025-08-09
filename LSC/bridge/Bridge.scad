@@ -175,9 +175,20 @@ module post_sills() {
 module braces() {
     for ( dx = [post_offset-3.5/2-1.5:post_gap:
                 post_offset+post_length-3.5/2-1.5] ) {
-        translate ([dx,-post_sill_overhang,-9.25-3.5])
-            rotate (a = -90+brace_angle, v = [1,0,0] )
-                brace();
+        difference() {
+            translate ([dx,-post_sill_overhang,-9.25-3.5])
+                rotate (a = -90+brace_angle, v = [1,0,0] )
+                    brace();
+            cube ([bridge_length,tread_width,height]);
+        }
+        difference() {
+            translate ([dx,tread_width+post_sill_overhang,-9.25-3.5])
+                rotate (a = 90-brace_angle, v = [1,0,0] )
+                    translate ([0,-3.5,0])
+                        brace();
+            cube ([bridge_length,tread_width,height]);
+        }
+        
     }
 }                        
 
