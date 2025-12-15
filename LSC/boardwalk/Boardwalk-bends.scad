@@ -10,8 +10,8 @@ tread_width = 3*12;
     // Tread width.
 stringer_space = 27.5;
     // Distance between stringer centers.
-trapezoid_long = 3;
-trapezoid_short = 1.5;
+tapered_long = 3;
+tapered_short = 1.5;
 
 angle = 30; // Degrees
 
@@ -31,6 +31,16 @@ module tread()
 {
     color ("SandyBrown")
         cube ([5.5,tread_width,1.5]);
+}
+module tapered()
+{
+    color ("SandyBrown")
+    linear_extrude ( 1.5 )
+    {
+	polygon ( [ [0,0], [0,tread_width,],
+		    [tapered_long,tread_width],
+		    [tapered_short,0] ] );
+    }
 }
 module stringer( length )
 {
@@ -75,4 +85,5 @@ module sills() {
 
 stringers();
 sills();
+tapered();
 
