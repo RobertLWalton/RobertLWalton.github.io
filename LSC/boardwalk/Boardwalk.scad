@@ -52,6 +52,24 @@ module sill()
     color ("LightGray")
         cube ([5.5,tread_width,5.5]);
 }
+module pad()
+{
+    color ("LightGray")
+        cube ([5.5,tread_width,1.5]);
+}
+module pipe()
+{
+    rotate ( [-90,0,0] )
+    color ("Gray")
+    linear_extrude ( height = tread_width, $fn=50 )
+    {
+	difference()
+	{
+	    circle ( d=11 );
+	    circle ( d=10 );
+	}
+    }
+}
 
 // ASSEMBLIES:
 
@@ -83,9 +101,17 @@ module backwalls()
 module sills() {
     translate ([0,0,-7.25 - 5.5]) sill();
 }
+module pads() {
+    translate ([0,0,-7.25 - 1.5]) pad();
+}
+module pipes() {
+    translate ([5.5/2,0,-7.25 - 5.5 - 1.5]) pipe();
+}
 
 treads();
 stringers();
 blocks();
 backwalls();
-sills();
+// sills();
+pads();
+pipes();
