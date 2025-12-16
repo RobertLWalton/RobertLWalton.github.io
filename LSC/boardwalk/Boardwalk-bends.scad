@@ -30,11 +30,14 @@ sill_center = ( stringer_short_length
 module tread()
 {
     color ("SandyBrown")
-        cube ([5.5,tread_width,1.5]);
+    translate ( [0,-3.5,7.25] )
+    cube ([5.5,tread_width,1.5]);
 }
-module tapered()
+module tapered(angle,displacement)
 {
     color ("SandyBrown")
+    translate ( [0,-3.5 - displacement,7.25] )
+    rotate ( [0,0,- angle] )
     linear_extrude ( 1.5 )
     {
 	polygon ( [ [0,0], [0,tread_width,],
@@ -57,9 +60,13 @@ module sill()
 
 module treads()
 {
-    for (dx = [0:6+stretch:section_length]) {
-        translate ([dx + 5.5 - bearing,0,0]) tread();
+    for (dx = [0:6:18]) {
+        translate ([4 + dx,0,0]) tread();
     }
+    translate ([28,0,0]) tapered(0,0);
+    translate ([30,0,0]) tapered(3,0.2);
+    translate ([32,0,0]) tapered(6,0.5);
+    translate ([34,0,0]) tapered(10,0.8);
 }
 module stringers()
 {
@@ -85,5 +92,5 @@ module sills() {
 
 stringers();
 sills();
-tapered();
+treads();
 
