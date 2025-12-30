@@ -46,11 +46,17 @@ module tread()
     translate ( [0,-3.5,7.25] )
     cube ([5.5,tread_width,1.5]);
 }
-module tapered(angle,displacement)
+
+// Computed so the line joining the halfway points of
+// the long and short ends aligns with the y axis and
+// has the origin as its center.
+//
+module tapered_tread()
 {
+    bisector_angle = atan2 ( (3.0-1.5)/2, tread_width);
     color ("SandyBrown")
-    translate ( [0,-3.5 - displacement,7.25] )
-    rotate ( [0,0,- angle] )
+    rotate ( [0,0,bisector_angle] )
+    translate ( [-(1.5+3.0)/4,-tread_width/2,0] )
     linear_extrude ( 1.5 )
     {
 	polygon ( [ [0,0], [0,tread_width,],
@@ -95,5 +101,6 @@ module stringers()
 }
 
 sills();
-stringers();
+// stringers();
+tapered_tread();
 
