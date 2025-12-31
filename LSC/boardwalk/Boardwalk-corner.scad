@@ -100,7 +100,29 @@ module stringers()
 
 }
 
+module tapered_treads()
+{
+    // Define a circle such that it is tangent to the long
+    // stringers at the point corner_long inches from the
+    // point where the midlines of the two long stringers
+    // intersect.  The center of this circle is on the y
+    // axis, and the tangent points are at angles +-
+    // corner_angle/2 relative to the center of the circle.
+    //
+    radius = corner_long / sin ( corner_angle/2 );
+    center_y = - radius + stringer_space/2;
+    delta_angle = corner_angle/number_tapered;
+    for ( da = [- corner_angle/2 + delta_angle/2:
+                delta_angle:corner_angle/2] )
+    {
+        x = center_y * sin ( da );
+	y = center_y - center_y * cos ( da );
+	translate ( [x, y, 0] )
+	    tapered_tread();
+    }
+}
+
 sills();
-// stringers();
-tapered_tread();
+stringers();
+tapered_treads();
 
