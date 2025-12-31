@@ -6,10 +6,10 @@ function hypotenuse(x,y) = sqrt ( x*x + y*y );
 
 // All distances are in inches.
 //
-corner_angle = 30;  // Degrees, angle of corner.
-corner_long = 36;   // Length of long side covered by
+corner_angle = 32;  // Degrees, angle of corner.
+corner_long = 12;   // Length of long side covered by
 		    // tapered treads.
-number_tapered = 10; // Number of tapered treads.
+number_tapered = 8; // Number of tapered treads.
 
 // PARAMETERS USUALLY NOT CHANGED:
 //
