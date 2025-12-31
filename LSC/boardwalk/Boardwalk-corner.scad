@@ -19,7 +19,7 @@ tread_width = 3*12;	// Tread width.
 stringer_space = 27.5;	// Distance between stringer centers.
 tapered_long = 3;	// Length long end of tapered tread.
 tapered_short = 1.5;	// Length short end of tapered tread.
-stringer_short_length = 3*12;  // Length shorter stringer.
+stringer_short_length = 4*12;  // Length shorter stringer.
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
@@ -109,14 +109,14 @@ module tapered_treads()
     // axis, and the tangent points are at angles +-
     // corner_angle/2 relative to the center of the circle.
     //
-    radius = corner_long / sin ( corner_angle/2 );
-    center_y = - radius + stringer_space/2;
+    radius = corner_long / tan ( corner_angle/2 );
+    center_y = - corner_long / sin ( corner_angle/2 );
     delta_angle = corner_angle/number_tapered;
     for ( da = [- corner_angle/2 + delta_angle/2:
                 delta_angle:corner_angle/2] )
     {
-        x = center_y * sin ( da );
-	y = center_y - center_y * cos ( da );
+        x = radius * sin ( da );
+	y = center_y + radius * cos ( da );
 	translate ( [x, y, 0] )
 	    tapered_tread();
     }
