@@ -115,9 +115,11 @@ module tapered_treads()
     for ( da = [- corner_angle/2 + delta_angle/2:
                 delta_angle:corner_angle/2] )
     {
-        x = radius * sin ( da );
-	y = center_y + radius * cos ( da );
+        r = radius / cos ( corner_angle/2 - abs ( da ) );
+        x = r * sin ( da );
+	y = center_y + r * cos ( da );
 	translate ( [x, y, 0] )
+	    rotate ( [0,0,-da] )
 	    tapered_tread();
     }
 }
