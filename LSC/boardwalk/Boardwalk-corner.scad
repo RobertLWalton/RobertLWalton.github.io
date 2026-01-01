@@ -6,10 +6,8 @@ function hypotenuse(x,y) = sqrt ( x*x + y*y );
 
 // All distances are in inches.
 //
-corner_angle = 32;  // Degrees, angle of corner.
-corner_long = 12;   // Length of long side covered by
-		    // tapered treads.
-number_tapered = 8; // Number of tapered treads.
+corner_angle = 30;  // Degrees, angle of corner.
+number_tapered = 6; // Number of tapered treads.
 
 // PARAMETERS USUALLY NOT CHANGED:
 //
@@ -20,6 +18,10 @@ stringer_space = 27.5;	// Distance between stringer centers.
 tapered_long = 3;	// Length long end of tapered tread.
 tapered_short = 1.5;	// Length short end of tapered tread.
 stringer_short_length = 4*12;  // Length shorter stringer.
+
+corner_long = ((tapered_long + tapered_short)/2 + 1.0)
+            * number_tapered / 2;
+    // Length of side bisector covered by tapered treads.
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
