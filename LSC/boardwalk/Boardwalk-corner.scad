@@ -17,11 +17,16 @@ tread_width = 3*12;	// Tread width.
 stringer_space = 27.5;	// Distance between stringer centers.
 tapered_long = 3;	// Length long end of tapered tread.
 tapered_short = 1.5;	// Length short end of tapered tread.
+cantilever = 3.5;	// Length of tread end beyone stringer.
 stringer_short_length = 4*12;  // Length shorter stringer.
 
-corner_long = ((tapered_long + tapered_short)/2 + 1.0)
-            * number_tapered / 2;
-    // Length of side bisector covered by tapered treads.
+tapered_width = tapered_short
+              + (cantilever/tread_width)
+	      * (tapered_long - tapered_short);
+    // Width of tapered tread where it crosses short stringer.
+corner_length = (tapered_width + 0.25)
+              * number_tapered / 2;
+    // Length of short stringer covered by tapered treads.
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
@@ -51,14 +56,15 @@ module tread()
 
 // Computed so the line joining the halfway points of
 // the long and short ends aligns with the y axis and
-// has the origin as its center.
+// has the origin that is cantilevel distant from short
+// end of tread.
 //
 module tapered_tread()
 {
     bisector_angle = atan2 ( (3.0-1.5)/2, tread_width);
     color ("SandyBrown")
     rotate ( [0,0,bisector_angle] )
-    translate ( [-(1.5+3.0)/4,-tread_width/2,0] )
+    translate ( [-tapered_width/2,-cantilever,0] )
     linear_extrude ( 1.5 )
     {
 	polygon ( [ [0,0], [0,tread_width,],
@@ -104,15 +110,16 @@ module stringers()
 
 module tapered_treads()
 {
-    // Define a circle such that it is tangent to the long
-    // stringers at the point corner_long inches from the
-    // point where the midlines of the two long stringers
+    // Define a circle such that it is tangent to the short
+    // stringers at the point corner_length inches from the
+    // point where the midlines of the two short stringers
     // intersect.  The center of this circle is on the y
     // axis, and the tangent points are at angles +-
     // corner_angle/2 relative to the center of the circle.
     //
-    radius = corner_long / tan ( corner_angle/2 );
-    center_y = - corner_long / sin ( corner_angle/2 );
+    radius = corner_length / tan ( corner_angle/2 );
+    center_y = - corner_length / sin ( corner_angle/2 )
+               - stringer_space/2;
     delta_angle = corner_angle/number_tapered;
     for ( da = [- corner_angle/2 + delta_angle/2:
                 delta_angle:corner_angle/2] )
