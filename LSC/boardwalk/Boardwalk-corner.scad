@@ -6,8 +6,10 @@ function hypotenuse(x,y) = sqrt ( x*x + y*y );
 
 // All distances are in inches.
 //
-corner_angle = 30;  // Degrees, angle of corner.
-number_tapered = 6; // Number of tapered treads.
+corner_angle = 32;  // Degrees, angle of corner.
+number_tapered = 8; // Number of tapered treads.
+short_gap = 0.125;  // Space between tapered treads
+		    // on the short stringers.
 
 // PARAMETERS USUALLY NOT CHANGED:
 //
@@ -20,13 +22,36 @@ tapered_short = 1.5;	// Length short end of tapered tread.
 cantilever = 3.5;	// Length of tread end beyone stringer.
 stringer_short_length = 4*12;  // Length shorter stringer.
 
-tapered_width = tapered_short
+tapered_short_width = tapered_short
               + (cantilever/tread_width)
 	      * (tapered_long - tapered_short);
     // Width of tapered tread where it crosses short stringer.
-corner_length = (tapered_width + 0.25)
+corner_short_length = (tapered_short_width + short_gap)
               * number_tapered / 2;
     // Length of short stringer covered by tapered treads.
+tapered_long_width = tapered_long
+              - (cantilever/tread_width)
+	      * (tapered_long - tapered_short);
+    // Width of tapered tread where it crosses long stringer.
+corner_long_length = corner_short_length
+                   + tan ( corner_angle/2 )
+		   * stringer_space;
+long_gap = ( 2 * corner_long_length
+             - number_tapered * tapered_long_width )
+	 / number_tapered;
+gap_difference = ( 2 * tan ( corner_angle/2 )
+                     * stringer_space )
+	       / number_tapered
+	       - ( tapered_long_width - tapered_short_width );
+tread_angle = corner_angle/number_tapered;
+
+echo ( "corner angle = ", corner_angle );
+echo ( "number tapered = ", number_tapered );
+echo ( "tread angle = ", tread_angle );
+echo ( "short gap = ", short_gap );
+echo ( "long gap = ", long_gap );
+echo ( "gap difference = ", gap_difference );
+echo ( "check = ", gap_difference - long_gap + short_gap );
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
@@ -64,7 +89,7 @@ module tapered_tread()
     bisector_angle = atan2 ( (3.0-1.5)/2, tread_width);
     color ("SandyBrown")
     rotate ( [0,0,bisector_angle] )
-    translate ( [-tapered_width/2,-cantilever,0] )
+    translate ( [-tapered_short_width/2,-cantilever,0] )
     linear_extrude ( 1.5 )
     {
 	polygon ( [ [0,0], [0,tread_width,],
@@ -111,18 +136,17 @@ module stringers()
 module tapered_treads()
 {
     // Define a circle such that it is tangent to the short
-    // stringers at the point corner_length inches from the
+    // stringers at the point corner_short_length inches from the
     // point where the midlines of the two short stringers
     // intersect.  The center of this circle is on the y
     // axis, and the tangent points are at angles +-
     // corner_angle/2 relative to the center of the circle.
     //
-    radius = corner_length / tan ( corner_angle/2 );
-    center_y = - corner_length / sin ( corner_angle/2 )
+    radius = corner_short_length / tan ( corner_angle/2 );
+    center_y = - corner_short_length / sin ( corner_angle/2 )
                - stringer_space/2;
-    delta_angle = corner_angle/number_tapered;
-    for ( da = [- corner_angle/2 + delta_angle/2:
-                delta_angle:corner_angle/2] )
+    for ( da = [- corner_angle/2 + tread_angle/2:
+                tread_angle:corner_angle/2] )
     {
         r = radius / cos ( corner_angle/2 - abs ( da ) );
         x = r * sin ( da );
