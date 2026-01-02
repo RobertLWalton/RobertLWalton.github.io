@@ -11,21 +11,23 @@ tapered_diff = \
                * ( tread_long - tread_short ) )
 
 print ( 'Gap Differences:' )
-print ( '   ', end='' )
-for N in range (2,11):
-    print ( ' {:4d}'.format ( N ), end='' )
+print ( '                                N')
+print ( 'A:', end='' )
+for N in range (1,26):
+    print ( ' {:3d}'.format ( N ), end='' )
 print ( '' )
-for I in range (38,51):
-    A = 0.1*I
-    print ( '{:2.1f}:'.format ( A ), end='' )
-    for N in range (2,11):
-        corner_angle = N*A
-        radians = math.radians ( corner_angle )
+for A in range (5,76,5):
+    print ( '{:1.0f}:'.format ( A ), end='' )
+    for N in range (1,26):
+        radians = math.radians ( A )
         gap_diff = ( ( 2 * math.tan ( radians/2 ) \
                        * stringer_space ) \
                      / N ) \
                  - tapered_diff;
-        print ( ' {:2.2f}'.format (gap_diff), end='' )
+        if gap_diff < 0.0 or gap_diff > 1:
+            print ( '   -', end='' )
+        else:
+            print ( ' {:2.1f}'.format (gap_diff), end='' )
     print ('')
 
 
