@@ -24,8 +24,9 @@ cantilever = 3.5;	// Length of tread end beyone
 stringer_short_length = 4*12;
 			// Length shorter stringer.
 
-number_tapered =
+nt =
     floor ( corner_angle / tread_angle + 1e-6 );
+number_tapered = nt - nt % 2;
 excess_angle = corner_angle
              - tread_angle * number_tapered;
 excess_portion = excess_angle / tread_angle;
@@ -45,6 +46,7 @@ echo ( "corner angle = ", corner_angle );
 echo ( "tread angle = ", tread_angle );
 echo ( "short gap = ", short_gap );
 echo ( "number tapered = ", number_tapered );
+echo ( "offset angle = ", excess_angle / 2 );
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
