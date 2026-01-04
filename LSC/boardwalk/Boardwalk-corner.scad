@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 30;  // Degrees, angle of corner.
+corner_angle = 33;  // Degrees, angle of corner.
 short_gap = 0.125;  // Space between tapered treads
 		    // on the short stringers.
 tread_angle = 4.0;  // Degrees, part of corner angle
@@ -48,7 +48,7 @@ echo ( "corner angle = ", corner_angle );
 echo ( "tread angle = ", tread_angle );
 echo ( "short gap = ", short_gap );
 echo ( "number tapered = ", number_tapered );
-echo ( "offset angle = ", excess_angle / 2 );
+echo ( "excess angle = ", excess_angle / 2 );
 
 // z axis is vertical; x axis it along boardwalk;
 // y axis is across boardwalk.
@@ -69,11 +69,19 @@ module stringer( length )
         cube ([length,1.5,7.25]);
 }
 
-module tread()
+module tread ( short_length = 5.5,
+               long_length = 5.5,
+               extra_length = 0 )
 {
     color ("SandyBrown")
-    translate ( [0,-3.5,7.25] )
-    cube ([5.5,tread_width,1.5]);
+    translate ( [0,-cantilever,0] )
+    linear_extrude ( 1.5 )
+    {
+	polygon ( [ [-extra_length,0],
+	            [-extra_length,tread_width,],
+		    [long_length,tread_width],
+		    [short_length,0] ] );
+    }
 }
 
 // Computed so the line joining the halfway points of
@@ -128,7 +136,7 @@ module stringers()
 
 }
 
-module tapered_treads()
+module treads()
 {
     // Define a circle such that it is tangent to the
     // short stringers at the point corner_short_length
@@ -155,8 +163,41 @@ module tapered_treads()
 	    rotate ( [0,0,-da] )
 	    tapered_tread();
     }
+
+    if ( excess_angle > 0 )
+    {
+	excess_short_length =
+	      radius * tan ( excess_angle/2 )
+	    - 2 * short_gap;
+	excess_long_length = excess_short_length
+			   + stringer_space
+			   * tan ( excess_angle/2 );
+	excess_extra_length =
+	    excess_short_length > 1.5 ? 0 : 2;
+	x = radius * sin ( - corner_angle/2 );
+	y = center_y
+	  + radius * cos ( - corner_angle/2 );
+	translate ( [x, y, 0] )
+	rotate ( [0,0,corner_angle/2] )
+	tread ( excess_short_length,
+		excess_long_length,
+		excess_extra_length );
+
+	if ( excess_extra_length > 0 )
+	{
+	    echo ( "ADDING TREAD",
+	           excess_extra_length );
+	    dx = - (4 + excess_extra_length)
+	       * cos ( corner_angle/2 );
+	    dy = - (4 + excess_extra_length)
+	       * sin ( corner_angle/2 );
+	    translate ( [x+dx, y+dy, 0] )
+	    rotate ( [0,0,corner_angle/2] )
+	    tread ( 3.5, 3.5 );
+	}
+    }
 }
 
 sills();
 stringers();
-tapered_treads();
+treads();
