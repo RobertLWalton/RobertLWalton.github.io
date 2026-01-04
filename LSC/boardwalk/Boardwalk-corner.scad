@@ -21,11 +21,13 @@ tapered_short = 1.5;	// Length short end of tapered
 			// tread.
 cantilever = 3.5;	// Length of tread end beyone
 			// stringer.
-stringer_short_length = 4*12;
-			// Length shorter stringer.
+stringer_long_length = 4*12; // Length longer stringer.
 
-nt =
-    floor ( corner_angle / tread_angle + 1e-6 );
+
+stringer_short_length =
+      stringer_long_length
+    - stringer_space * tan ( corner_angle / 2 );
+nt = floor ( corner_angle / tread_angle + 1e-6 );
 number_tapered = nt - nt % 2;
 excess_angle = corner_angle
              - tread_angle * number_tapered;
@@ -101,10 +103,6 @@ module sills() {
 }
 module stringers()
 {
-
-    stringer_long_length =
-          stringer_short_length
-	+ stringer_space * tan ( corner_angle / 2 );
 
     translate([0,-stringer_space/2,0])
 	rotate ([0,0,-corner_angle/2])
