@@ -31,18 +31,12 @@ nt = floor ( corner_angle / tread_angle + 1e-6 );
 number_tapered = nt - nt % 2;
 excess_angle = corner_angle
              - tread_angle * number_tapered;
-excess_portion = excess_angle / tread_angle;
 
 tapered_short_width = tapered_short
               + (cantilever/tread_width)
 	      * (tapered_long - tapered_short);
     // Width of tapered tread where it crosses short
     // stringer.
-corner_short_length = (tapered_short_width + short_gap)
-                    * (number_tapered + excess_portion)
-		    / 2;
-    // Length of short stringer covered by tapered
-    // treads plus excess_portion.
 
 echo ( "corner angle = ", corner_angle );
 echo ( "tread angle = ", tread_angle );
@@ -138,6 +132,13 @@ module stringers()
 
 module treads()
 {
+    excess_portion = excess_angle / tread_angle;
+    corner_short_length = (tapered_short_width + short_gap)
+			* (number_tapered + excess_portion)
+			/ 2;
+	// Length of short stringer covered by tapered
+	// treads plus excess_portion.
+
     // Define a circle such that it is tangent to the
     // short stringers at the point corner_short_length
     // inches from the point where the midlines of the
@@ -164,14 +165,23 @@ module treads()
 	    tapered_tread();
     }
 
+    corner_long_length = corner_short_length
+                       + stringer_space
+		       * tan ( corner_angle/2 );
+    corner_excess_1 = 6 - corner_long_length % 6;
+    corner_excess = corner_excess_1
+                  + ( corner_excess_1 >= 0.5 ?  0 : 6 )
+		  - 0.5;
+    excess_short_length =
+	  radius * tan ( excess_angle/2 )
+	- 2 * short_gap;
+    excess_long_length = excess_short_length
+		       + stringer_space
+		       * tan ( excess_angle/2 );
+
+
     if ( excess_angle > 0 )
     {
-	excess_short_length =
-	      radius * tan ( excess_angle/2 )
-	    - 2 * short_gap;
-	excess_long_length = excess_short_length
-			   + stringer_space
-			   * tan ( excess_angle/2 );
 	excess_extra_length =
 	    excess_short_length > 1.5 ? 0 : 2;
 	x = radius * sin ( - corner_angle/2 );
