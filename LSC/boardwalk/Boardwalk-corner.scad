@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 33;  // Degrees, angle of corner.
+corner_angle = 31;  // Degrees, angle of corner.
 short_gap = 0.125;  // Space between tapered treads
 		    // on the short stringers.
 tread_angle = 4.0;  // Degrees, part of corner angle
@@ -22,6 +22,7 @@ tapered_short = 1.5;	// Length short end of tapered
 cantilever = 3.5;	// Length of tread end beyone
 			// stringer.
 stringer_long_length = 4*12; // Length longer stringer.
+normal_gap = 0.5 + 0.5/15; // Gap between normal treads.
 
 
 stringer_short_length =
@@ -138,6 +139,18 @@ module treads()
 			/ 2;
 	// Length of short stringer covered by tapered
 	// treads plus excess_portion.
+    corner_long_length = corner_short_length
+                       + stringer_space
+		       * tan ( corner_angle/2 );
+	// Length of long stringer covered by tapered
+	// treads plus excess_portion.
+    nn = ceil (   ( corner_long_length + 1e-6 )
+		/ ( 5.5 + normal_gap ) );
+    corner_normal_length =
+        nn == 0 ? 0 :
+	( 5.5 + normal_gap ) * nn - normal_gap;
+    echo ( "corner_normal_length",
+           corner_normal_length, nn );
 
     // Define a circle such that it is tangent to the
     // short stringers at the point corner_short_length
@@ -165,25 +178,35 @@ module treads()
 	    tapered_tread();
     }
 
-    corner_long_length = corner_short_length
-                       + stringer_space
-		       * tan ( corner_angle/2 );
-    corner_excess_1 = 6 - corner_long_length % 6;
-    corner_excess = corner_excess_1
-                  + ( corner_excess_1 >= 0.5 ?  0 : 6 )
-		  - 0.5;
-    excess_short_length =
-	  radius * tan ( excess_angle/2 )
-	- 2 * short_gap;
-    excess_long_length = excess_short_length
-		       + stringer_space
-		       * tan ( excess_angle/2 );
 
 
     if ( excess_angle > 0 )
     {
+	excess_short_length =
+	      radius * tan ( excess_angle/2 )
+	    - short_gap/2;
+	excess_long_length = excess_short_length
+			   + stringer_space
+			   * tan ( excess_angle/2 );
+	excess_extra_length_1 =
+	    corner_normal_length - corner_long_length;
+	el_1 = excess_extra_length_1 +
+	       excess_long_length;
+	excess_extra_length_2 =
+	      excess_extra_length_1
+	    + ( el_1 < 1.5 ? 5.5 + normal_gap : 0 );
+	el_2 = excess_extra_length_2 +
+	       excess_long_length;
+	        
 	excess_extra_length =
-	    excess_short_length > 1.5 ? 0 : 2;
+	      excess_extra_length_2
+	    + ( el_2 < 5.5 ? 0 : - 3.0 - normal_gap );
+	excess_next_length = ( el_2 < 5.5 ? 0 : 3.0 );
+
+	echo ( "ADDING EXTRA TREAD",
+	       excess_extra_length,
+	         excess_extra_length
+	       + corner_long_length );
 	x = radius * sin ( - corner_angle/2 );
 	y = center_y
 	  + radius * cos ( - corner_angle/2 );
@@ -193,17 +216,22 @@ module treads()
 		excess_long_length,
 		excess_extra_length );
 
-	if ( excess_extra_length > 0 )
+	if ( excess_next_length > 0 && 1 == 0 )
 	{
-	    echo ( "ADDING TREAD",
-	           excess_extra_length );
-	    dx = - (4 + excess_extra_length)
-	       * cos ( corner_angle/2 );
-	    dy = - (4 + excess_extra_length)
-	       * sin ( corner_angle/2 );
+	    echo ( "ADDING NARROW TREAD",
+	           excess_next_length );
+	    len = excess_extra_length
+	        + excess_next_length
+		+ normal_gap;
+	    dx = - len * cos ( corner_angle/2 );
+	    dy = - len * sin ( corner_angle/2 );
 	    translate ( [x+dx, y+dy, 0] )
 	    rotate ( [0,0,corner_angle/2] )
-	    tread ( 3.5, 3.5 );
+	    tread ( excess_next_length,
+	            excess_next_length,
+		      excess_next_length + normal_gap
+		    + excess_extra_length
+		    + corner_long_length );
 	}
     }
 }
