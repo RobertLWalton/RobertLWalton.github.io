@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 7;  // Degrees, angle of corner.
+corner_angle = 16;  // Degrees, angle of corner.
 short_gap = 0.125;  // Space between tapered treads
 		    // on the short stringers.
 tread_angle = 4.0;  // Degrees, part of corner angle
@@ -220,6 +220,11 @@ module treads()
 	tread ( excess_short_length,
 		excess_long_length ,
 		excess_extra_length );
+	translate ( [-x, y, 0] )
+	rotate ( [0,0,-corner_angle/2] )
+	tread ( - excess_short_length,
+		- excess_long_length ,
+		- excess_extra_length );
     }
 }
 
