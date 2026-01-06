@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 31;  // Degrees, angle of corner.
+corner_angle = 7;  // Degrees, angle of corner.
 short_gap = 0.125;  // Space between tapered treads
 		    // on the short stringers.
 tread_angle = 4.0;  // Degrees, part of corner angle
@@ -165,6 +165,7 @@ module treads()
     center_y = - corner_short_length
                / sin ( corner_angle/2 )
              - stringer_space/2;
+    if ( number_tapered > 0 )
     for ( i = [0:number_tapered-1] )
     {
         da = - corner_angle/2 + excess_angle/2
@@ -178,13 +179,11 @@ module treads()
 	    tapered_tread();
     }
 
-
-
     if ( excess_angle > 0 )
     {
 	excess_short_length =
 	      radius * tan ( excess_angle/2 )
-	    - short_gap/2;
+	    - 2 * short_gap;
 	excess_long_length = excess_short_length
 			   + stringer_space
 			   * tan ( excess_angle/2 );
@@ -198,52 +197,29 @@ module treads()
 	       excess_short_length;
 	excess_extra_length_2 =
 	      excess_extra_length_1
-	    + ( el_1 < 1.5 ? 5.5 + normal_gap : 0 );
+	    + ( el_1 < 1.5 ? 1.5 - el_1 : 0 );
 	el_2 = excess_extra_length_2 +
 	       excess_long_length;
-	offset = floor ( excess_extra_length_2
-	                 - normal_gap );
-	        
 	excess_extra_length =
-	      excess_extra_length_2
-	    + ( el_2 < 5.5 ? 0 : - offset - normal_gap );
-	excess_next_length = ( el_2 < 5.5 ? 0 : offset );
-	echo ( "EXCESS LENGTH",
-	       excess_extra_length_1,
-	       excess_extra_length_2,
-	       excess_extra_length,
-	       excess_next_length );
+	    ( el_2 <= 5.5 ? excess_extra_length_2 :
+	      5.5 - excess_long_length );
 
 	echo ( "ADDING EXTRA TREAD",
-	       excess_extra_length,
 	         excess_extra_length
-	       + corner_long_length );
+	       + excess_short_length,
+	         excess_extra_length
+	       + excess_long_length,
+	         excess_extra_length
+	       + corner_long_length,
+	       corner_normal_length );
 	x = radius * sin ( - corner_angle/2 );
 	y = center_y
 	  + radius * cos ( - corner_angle/2 );
 	translate ( [x, y, 0] )
 	rotate ( [0,0,corner_angle/2] )
 	tread ( excess_short_length,
-		excess_long_length,
+		excess_long_length ,
 		excess_extra_length );
-
-	if ( excess_next_length > 0 && 1 == 0 )
-	{
-	    echo ( "ADDING NARROW TREAD",
-	           excess_next_length );
-	    len = excess_extra_length
-	        + excess_next_length
-		+ normal_gap;
-	    dx = - len * cos ( corner_angle/2 );
-	    dy = - len * sin ( corner_angle/2 );
-	    translate ( [x+dx, y+dy, 0] )
-	    rotate ( [0,0,corner_angle/2] )
-	    tread ( excess_next_length,
-	            excess_next_length,
-		      excess_next_length + normal_gap
-		    + excess_extra_length
-		    + corner_long_length );
-	}
     }
 }
 
