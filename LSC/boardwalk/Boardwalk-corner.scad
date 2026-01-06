@@ -188,20 +188,31 @@ module treads()
 	excess_long_length = excess_short_length
 			   + stringer_space
 			   * tan ( excess_angle/2 );
+	echo ( "EXCESS",
+	       excess_angle/2,
+	       excess_short_length,
+	       excess_long_length );
 	excess_extra_length_1 =
 	    corner_normal_length - corner_long_length;
 	el_1 = excess_extra_length_1 +
-	       excess_long_length;
+	       excess_short_length;
 	excess_extra_length_2 =
 	      excess_extra_length_1
 	    + ( el_1 < 1.5 ? 5.5 + normal_gap : 0 );
 	el_2 = excess_extra_length_2 +
 	       excess_long_length;
+	offset = floor ( excess_extra_length_2
+	                 - normal_gap );
 	        
 	excess_extra_length =
 	      excess_extra_length_2
-	    + ( el_2 < 5.5 ? 0 : - 3.0 - normal_gap );
-	excess_next_length = ( el_2 < 5.5 ? 0 : 3.0 );
+	    + ( el_2 < 5.5 ? 0 : - offset - normal_gap );
+	excess_next_length = ( el_2 < 5.5 ? 0 : offset );
+	echo ( "EXCESS LENGTH",
+	       excess_extra_length_1,
+	       excess_extra_length_2,
+	       excess_extra_length,
+	       excess_next_length );
 
 	echo ( "ADDING EXTRA TREAD",
 	       excess_extra_length,
