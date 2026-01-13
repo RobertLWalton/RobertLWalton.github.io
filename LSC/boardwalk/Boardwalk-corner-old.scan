@@ -2,10 +2,10 @@
 
 // All distances are in inches.
 //
-corner_angle = 16;  // Degrees, angle of corner.
+corner_angle = 45;  // Degrees, angle of corner.
 short_gap = 0.125;  // Space between tapered treads
 		    // on the short stringers.
-tread_angle = 4.0;  // Degrees, part of corner angle
+tread_angle = 5.0;  // Degrees, part of corner angle
 		    // occupied by one tapered tread.
 
 // PARAMETERS USUALLY NOT CHANGED:
@@ -15,7 +15,7 @@ tread_angle = 4.0;  // Degrees, part of corner angle
 tread_width = 3*12;	// Tread width.
 stringer_space = 27.5;	// Distance between stringer
 			// centers.
-tapered_long = 3;	// Length long end of tapered
+tapered_long = 4;	// Length long end of tapered
 			// tread.
 tapered_short = 1.5;	// Length short end of tapered
 			// tread.

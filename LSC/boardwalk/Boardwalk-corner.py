@@ -1,7 +1,7 @@
 import math
 
 stringer_space = 27.5
-tread_long = 3.0
+tread_long = 4.0
 tread_short = 1.5
 cantilever = 3.5
 tread_width = 36.0
@@ -24,7 +24,7 @@ print ( ' dA', end='' )
 for N in range (2,16):
     print ( ' {:4d}'.format ( N ), end='' )
 print ( '' )
-for I in range (35,46):
+for I in range (35,56):
     A = 0.1*I
     print ( '{:2.1f}:'.format ( A ), end='' )
     for N in range (2,16):
