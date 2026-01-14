@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 45;  // Degrees, angle of corner.
+corner_angle = 7;  // Degrees, angle of corner.
 
 // PARAMETERS USUALLY NOT CHANGED:
 //
@@ -124,8 +124,11 @@ module stringers()
 // x = 0 is to be placed.  Ditto long_length for
 // long stringer.
 //
+treads_gap =
+    ( stringer_gap/2 ) / cos ( corner_angle/2 );
 module treads
-	( side, short_length = gap, long_length = gap )
+	( side, short_length = treads_gap,
+	        long_length = treads_gap )
 {
     short_x = side * short_length
                    * cos ( corner_angle/2 );
