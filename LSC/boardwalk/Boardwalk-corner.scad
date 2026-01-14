@@ -11,9 +11,8 @@ corner_angle = 45;  // Degrees, angle of corner.
 tread_width = 3*12;	// Tread width.
 stringer_space = 27.5;	// Distance between stringer
 			// centers.
-stringer_gap = 0.5 + sin ( corner_angle/2 ) * 1.5;
-			// Gap between stringers at
-			// junction.
+stringer_gap = 0.5;     // Gap between stringer corners
+			// at junction.
 tapered_long = 4;	// Length long end of tapered
 			// tread.
 tapered_short = 1.5;	// Length short end of tapered
@@ -24,6 +23,11 @@ stringer_long_length = 4*12; // Length longer stringer.
 normal_gap = 0.5; // Gap between normal treads.
 
 sill_space = stringer_space / cos ( corner_angle / 2 );
+
+gap = ( stringer_gap/2 ) / cos ( corner_angle/2 )
+    + tan ( corner_angle/2 ) * (1.5/2);
+    // Gap between center of stringer and x = 0 line,
+    // measured in direction of stringer.
 
 stringer_short_length =
       stringer_long_length
@@ -91,25 +95,23 @@ module stringers()
 {
     translate([0,-sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
-	    translate ([stringer_gap/2,-1.5/2,-7.25])
+	    translate ([gap,-1.5/2,-7.25])
 		stringer ( stringer_short_length );
 
     translate([0,-sill_space/2,0])
 	rotate ([0,0,corner_angle/2])
-	    translate ([-stringer_short_length
-	                -stringer_gap/2,
+	    translate ([-stringer_short_length - gap,
 	                -1.5/2,-7.25])
 		stringer ( stringer_short_length );
 
     translate([0,sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
-	    translate ([stringer_gap/2,-1.5/2,-7.25])
+	    translate ([gap,-1.5/2,-7.25])
 		stringer ( stringer_long_length );
 
     translate([0,sill_space/2,0])
 	rotate ([0,0,corner_angle/2])
-	    translate ([-stringer_long_length
-	                -stringer_gap/2,
+	    translate ([-stringer_long_length - gap,
 	                -1.5/2,-7.25])
 		stringer ( stringer_long_length );
 
@@ -122,7 +124,6 @@ module stringers()
 // x = 0 is to be placed.  Ditto long_length for
 // long stringer.
 //
-gap = sin ( corner_angle/2 ) * (1.5/2);
 module treads
 	( side, short_length = gap, long_length = gap )
 {
@@ -157,8 +158,8 @@ module treads
 	         long_length + tapered_long_width
 		             + normal_gap );
     }
-    else if (   long_length + 5.5
-              < stringer_long_length )
+    else
+    if ( corner_angle/2 + side * tread_angle > 0.5 )
     {
         target_long =
 	       ceil (   ( long_length + 1e-3 )
@@ -168,38 +169,26 @@ module treads
 	             - stringer_space
 		     * tan ( corner_angle/2 );
 
-	if ( - side * tread_angle > 0.5 )
-	{
-	    long_1 = target_long - long_length
-	                         - normal_gap;
-	    short_1 = target_short - short_length
-	                           - normal_gap;
-	    assert ( short_1 <= long_1 + 1e-3 );
-	    min_1 = min ( long_1, short_1 );
-	    max_1 = max ( long_1, short_1 );
-	    extra = ( min_1 >= 1.5 ? 0 :
-	              max_1 <= 2.5 ? 3.0 :
-		      1.5 - min_1 );
-	    long = long_1 + extra;
-	    short = short_1 + extra;
-	    assert ( long <= 5.5 + 1e-3 );
-	    translate ( [short_x, short_y, 0] )
-	    rotate ( tread_angle )
-	    tread ( side * short, side * long );
-	}
-	else
-	if ( target_length - long_length > 0.25 )
-	{
-	    long_1 = target_length - normal_gap;
-	    long = ( long_1 >= 1.5 ? long_1 : 3.0 );
-
-	    translate ( [x, y, 0] )
-	    rotate ( - side * corner_angle/2 )
-	    tread ( side * long, side * long );
-	}
+	long_1 = target_long - long_length
+			     - normal_gap;
+	short_1 = target_short - short_length
+			       - normal_gap;
+	assert ( short_1 <= long_1 + 1e-3 );
+	min_1 = min ( long_1, short_1 );
+	max_1 = max ( long_1, short_1 );
+	extra = ( min_1 >= 1.5 ? 0 :
+		  max_1 <= 2.5 ? 3.0 :
+		  1.5 - min_1 );
+	long = long_1 + extra;
+	short = short_1 + extra;
+	assert ( long <= 5.5 + 1e-3 );
+	translate ( [short_x, short_y, 0] )
+	rotate ( tread_angle )
+	tread ( side * short, side * long );
     }
 }
 
 sills();
 stringers();
 treads ( -1 );
+treads ( +1 );
