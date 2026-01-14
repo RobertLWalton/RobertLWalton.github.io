@@ -23,6 +23,7 @@ cantilever = 3.5;	// Length of tread end beyone
 stringer_long_length = 4*12; // Length longer stringer.
 normal_gap = 0.5; // Gap between normal treads.
 
+sill_space = stringer_space / cos ( corner_angle / 2 );
 
 stringer_short_length =
       stringer_long_length
@@ -88,24 +89,24 @@ module sills() {
 }
 module stringers()
 {
-    translate([0,-stringer_space/2,0])
+    translate([0,-sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
 	    translate ([stringer_gap/2,-1.5/2,-7.25])
 		stringer ( stringer_short_length );
 
-    translate([0,-stringer_space/2,0])
+    translate([0,-sill_space/2,0])
 	rotate ([0,0,corner_angle/2])
 	    translate ([-stringer_short_length
 	                -stringer_gap/2,
 	                -1.5/2,-7.25])
 		stringer ( stringer_short_length );
 
-    translate([0,stringer_space/2,0])
+    translate([0,sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
 	    translate ([stringer_gap/2,-1.5/2,-7.25])
 		stringer ( stringer_long_length );
 
-    translate([0,stringer_space/2,0])
+    translate([0,sill_space/2,0])
 	rotate ([0,0,corner_angle/2])
 	    translate ([-stringer_long_length
 	                -stringer_gap/2,
@@ -127,11 +128,11 @@ module treads
 {
     short_x = side * short_length
                    * cos ( corner_angle/2 );
-    short_y = - stringer_space/2
+    short_y = - sill_space/2
               - short_length * sin ( corner_angle/2 );
     long_x = side * long_length
                   * cos ( corner_angle/2 );
-    long_y = + stringer_space/2
+    long_y = + sill_space/2
              - long_length * sin ( corner_angle/2 );
 
     tread_angle = atan2 ( long_y - short_y,
@@ -156,7 +157,8 @@ module treads
 	         long_length + tapered_long_width
 		             + normal_gap );
     }
-    else
+    else if (   long_length + 5.5
+              < stringer_long_length )
     {
         target_long =
 	       ceil (   ( long_length + 1e-3 )
@@ -164,11 +166,7 @@ module treads
 	    * ( 5.5 + normal_gap );
 	target_short = target_long
 	             - stringer_space
-		     * sin ( corner_angle/2 );
-	x = side * target_short
-                 * cos ( corner_angle/2 );
-	y = - stringer_space/2
-            - target_short * sin ( corner_angle/2 );
+		     * tan ( corner_angle/2 );
 
 	if ( - side * tread_angle > 0.5 )
 	{
@@ -184,9 +182,9 @@ module treads
 		      1.5 - min_1 );
 	    long = long_1 + extra;
 	    short = short_1 + extra;
-	    assert ( long_1 <= 5.5 + 1e-3 );
-	    translate ( [x, y, 0] )
-	    rotate ( - side * corner_angle/2 )
+	    assert ( long <= 5.5 + 1e-3 );
+	    translate ( [short_x, short_y, 0] )
+	    rotate ( tread_angle )
 	    tread ( side * short, side * long );
 	}
 	else
