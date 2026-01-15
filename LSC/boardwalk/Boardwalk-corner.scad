@@ -2,7 +2,7 @@
 
 // All distances are in inches.
 //
-corner_angle = 7;  // Degrees, angle of corner.
+corner_angle = 35;  // Degrees, angle of corner.
 
 // PARAMETERS USUALLY NOT CHANGED:
 //
@@ -91,7 +91,7 @@ module sills() {
     translate ([-5.5/2,-tread_width/2,-5.5-7.25])
 	sill();
 }
-module stringers()
+module short_stringers()
 {
     translate([0,-sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
@@ -103,7 +103,9 @@ module stringers()
 	    translate ([-stringer_short_length - gap,
 	                -1.5/2,-7.25])
 		stringer ( stringer_short_length );
-
+}
+module long_stringers()
+{
     translate([0,sill_space/2,0])
 	rotate ([0,0,-corner_angle/2])
 	    translate ([gap,-1.5/2,-7.25])
@@ -114,7 +116,6 @@ module stringers()
 	    translate ([-stringer_long_length - gap,
 	                -1.5/2,-7.25])
 		stringer ( stringer_long_length );
-
 }
 
 // side = -1 for left side, +1 for right side.
@@ -192,6 +193,7 @@ module treads
 }
 
 sills();
-stringers();
-treads ( -1 );
-treads ( +1 );
+long_stringers();
+// short_stringers();
+// treads ( -1 );
+// treads ( +1 );
