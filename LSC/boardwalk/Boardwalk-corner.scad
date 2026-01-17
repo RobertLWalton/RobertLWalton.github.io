@@ -37,13 +37,13 @@ echo ( "STRINGER LENGTHS", stringer_long_length,
                            stringer_short_length );
 
 tapered_long_width = tapered_long
-              - (cantilever/tread_width)
+              - ((cantilever+1.5/2)/tread_width)
 	      * (tapered_long - tapered_short);
     // Width of tapered tread where it crosses long
     // stringer.
 
 tapered_short_width = tapered_short
-              + (cantilever/tread_width)
+              + ((cantilever+1.5/2)/tread_width)
 	      * (tapered_long - tapered_short);
     // Width of tapered tread where it crosses short
     // stringer.
@@ -184,13 +184,19 @@ module treads
 	short_1 = target_short - short_length
 			       - normal_gap;
 	assert ( short_1 <= long_1 + 1e-3 );
-	min_1 = min ( long_1, short_1 );
-	max_1 = max ( long_1, short_1 );
-	extra = ( min_1 >= 1.5 ? 0 :
-		  max_1 <= 2.5 ? 3.0 :
-		  1.5 - min_1 );
-	long = long_1 + extra;
-	short = short_1 + extra;
+	offset = ((cantilever+1.5/2)/stringer_space)
+	        * (long_1 - short_1);
+
+	long_2 = long_1 + offset;
+	short_2 = short_1 - offset;
+
+	min_2 = min ( long_2, short_2 );
+	max_2 = max ( long_2, short_2 );
+	extra = ( min_2 >= 1.5 ? 0 :
+		  max_2 <= 2.5 ? 3.0 :
+		  1.5 - min_2 );
+	long = long_2 + extra;
+	short = short_2 + extra;
 	assert ( long <= 5.5 + 1e-3 );
 	translate ( [short_x, short_y, 0] )
 	rotate ( tread_angle )
