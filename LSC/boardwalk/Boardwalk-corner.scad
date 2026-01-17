@@ -33,6 +33,9 @@ stringer_short_length =
       stringer_long_length
     - stringer_space * tan ( corner_angle / 2 );
 
+echo ( "STRINGER LENGTHS", stringer_long_length,
+                           stringer_short_length );
+
 tapered_long_width = tapered_long
               - (cantilever/tread_width)
 	      * (tapered_long - tapered_short);
@@ -44,6 +47,9 @@ tapered_short_width = tapered_short
 	      * (tapered_long - tapered_short);
     // Width of tapered tread where it crosses short
     // stringer.
+
+echo ( "STANDARD TAPERED", tapered_long_width,
+                           tapered_short_width );
 
 
 
@@ -189,6 +195,7 @@ module treads
 	translate ( [short_x, short_y, 0] )
 	rotate ( tread_angle )
 	tread ( side * short, side * long );
+	echo ( "NON-STANDARD TAPERED", long, short );
     }
 }
 
