@@ -29,9 +29,12 @@ gap = ( stringer_gap/2 ) / cos ( corner_angle/2 )
     // Gap between center of stringer and x = 0 line,
     // measured in direction of stringer.
 
+stringer_difference =
+    stringer_space * tan ( corner_angle / 2 );
+
 stringer_short_length =
-      stringer_long_length
-    - stringer_space * tan ( corner_angle / 2 );
+      stringer_long_length - stringer_difference;
+
 
 echo ( "STRINGER LENGTHS", stringer_long_length,
                            stringer_short_length );
@@ -48,12 +51,12 @@ tapered_short_width = tapered_short
     // Width of tapered tread where it crosses short
     // stringer.
 
-tapered_angle =
-    atan2 ( ( tapered_long - tapered_short ),
-            tread_width );
+tapered_difference = tapered_long_width
+                   - tapered_short_width;
 
 echo ( "STANDARD TAPERED", tapered_long_width,
-                           tapered_short_width );
+                           tapered_short_width,
+			   tapered_difference );
 
 
 
@@ -141,6 +144,10 @@ module treads
 	( side, short_length = treads_gap,
 	        long_length = treads_gap )
 {
+    difference = stringer_difference
+               - long_length
+	       + short_length;
+
     short_x = side * short_length
                    * cos ( corner_angle/2 );
     short_y = - sill_space/2
@@ -158,8 +165,7 @@ module treads
     echo ( "TREADS", side, short_length, long_length,
                      tread_angle );
 
-    if (    corner_angle/2 + side * tread_angle
-         >= tapered_angle - 0.5 )
+    if ( difference >= tapered_difference - 0.25 )
     {
         // Install tapered tread.
 
@@ -174,7 +180,7 @@ module treads
 		             + normal_gap );
     }
     else
-    if ( corner_angle/2 + side * tread_angle > 0.5 )
+    if ( difference >= 0.25 )
     {
         target_long =
 	       ceil (   ( long_length + 1e-3 )
