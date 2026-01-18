@@ -207,6 +207,6 @@ module treads
 
 sills();
 long_stringers();
-short_stringers();
-treads ( -1 );
+// short_stringers();
+// treads ( -1 );
 // treads ( +1 );
