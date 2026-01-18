@@ -48,6 +48,10 @@ tapered_short_width = tapered_short
     // Width of tapered tread where it crosses short
     // stringer.
 
+tapered_angle =
+    atan2 ( ( tapered_long - tapered_short ),
+            tread_width );
+
 echo ( "STANDARD TAPERED", tapered_long_width,
                            tapered_short_width );
 
@@ -154,7 +158,8 @@ module treads
     echo ( "TREADS", side, short_length, long_length,
                      tread_angle );
 
-    if ( corner_angle/2 + side * tread_angle >= 4 )
+    if (    corner_angle/2 + side * tread_angle
+         >= tapered_angle - 0.5 )
     {
         // Install tapered tread.
 
@@ -207,6 +212,6 @@ module treads
 
 sills();
 long_stringers();
-// short_stringers();
-// treads ( -1 );
+short_stringers();
+treads ( -1 );
 // treads ( +1 );
