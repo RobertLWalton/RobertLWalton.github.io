@@ -173,14 +173,19 @@ module treads
 
 	translate ( [short_x, short_y, 0] )
 	rotate ( [0, 0, tread_angle] )
-	tread ( side * tapered_short, side * tapered_long );
+	tread ( side * tapered_short,
+	        side * tapered_long );
 
+	z = 1 / cos (   corner_angle/2
+	              - abs (tread_angle) );
 	if ( count > 1 )
 	    treads ( side,
-		     short_length + tapered_short_width
-				  + normal_gap,
-		     long_length + tapered_long_width
-				 + normal_gap,
+		       short_length
+		     + z * tapered_short_width
+		     + normal_gap,
+		       long_length
+		     + z * tapered_long_width
+		     + normal_gap,
 		     count - 1 );
     }
     else
@@ -223,6 +228,6 @@ module treads
 sills();
 long_stringers();
 short_stringers();
-// treads ( -1 );
+treads ( -1 );
 // treads ( +1 );
-treads ( -1, treads_gap, treads_gap, 1 );
+// treads ( -1, treads_gap, treads_gap, 1 );
