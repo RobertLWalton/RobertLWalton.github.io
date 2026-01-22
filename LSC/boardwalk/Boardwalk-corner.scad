@@ -142,8 +142,10 @@ treads_gap =
     ( stringer_gap/2 ) / cos ( corner_angle/2 );
 module treads
 	( side, short_length = treads_gap,
-	        long_length = treads_gap )
+	        long_length = treads_gap,
+		count = 1000000 )
 {
+
     difference = stringer_difference
                - long_length
 	       + short_length;
@@ -173,11 +175,13 @@ module treads
 	rotate ( [0, 0, tread_angle] )
 	tread ( side * tapered_short, side * tapered_long );
 
-	treads ( side,
-	         short_length + tapered_short_width
-		              + normal_gap,
-	         long_length + tapered_long_width
-		             + normal_gap );
+	if ( count > 1 )
+	    treads ( side,
+		     short_length + tapered_short_width
+				  + normal_gap,
+		     long_length + tapered_long_width
+				 + normal_gap,
+		     count - 1 );
     }
     else
     if ( difference >= 0.25 )
@@ -219,5 +223,6 @@ module treads
 sills();
 long_stringers();
 short_stringers();
-treads ( -1 );
+// treads ( -1 );
 // treads ( +1 );
+treads ( -1, treads_gap, treads_gap, 1 );
