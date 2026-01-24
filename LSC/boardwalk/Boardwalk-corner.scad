@@ -228,6 +228,6 @@ module treads
 sills();
 long_stringers();
 short_stringers();
-treads ( -1 );
+// treads ( -1 );
 // treads ( +1 );
-// treads ( -1, treads_gap, treads_gap, 1 );
+treads ( -1, treads_gap, treads_gap, 2 );
