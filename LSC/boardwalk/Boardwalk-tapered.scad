@@ -28,4 +28,4 @@ module treads ( short_length = 1.5,
 
 treads();
 translate ( [10,0,0] )
-treads(3,5.5);
+treads(1.5,5.5);
