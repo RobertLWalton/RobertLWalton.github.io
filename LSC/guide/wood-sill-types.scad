@@ -1,30 +1,31 @@
 // Use `Top View'.
 
 // All distances are in inches.
-//
-sill_width = 5.5;
-    // Sill top and bottom width.
 
 // COMPONENTS:
 
 module six_by_six()
 {
     color ("LightGrey")
-        cube ([sill_width,5.5,3*12]);
+        cube ([5.5,5.5,3*12]);
 }
-module four_by_four()
+module four_by_six()
 {
     color ("LightGrey")
-        cube ([3.5,3.5,3*12]);
+        cube ([5.5,3.5,3*12]);
 }
 module two_by_six()
 {
     color ("LightGrey")
-        cube ([sill_width,1.5,3*12]);
+        cube ([5.5,1.5,3*12]);
 }
 
 // ASSEMBLIES:
 
+module small_single()
+{
+    four_by_six();
+}
 module single()
 {
     six_by_six();
@@ -36,14 +37,14 @@ module single_plus_one()
 }
 module single_plus_two()
 {
-    two_by_six();
-    translate ([0, 1.5]) six_by_six();
+    six_by_six();
+    translate ([0, 5.5]) two_by_six();
     translate ([0, 7.0]) two_by_six();
 }
 module small_plus_two()
 {
-    two_by_six();
-    translate ([1.0, 1.5]) four_by_four();
+    four_by_six();
+    translate ([0, 3.5]) two_by_six();
     translate ([0, 5.0]) two_by_six();
 }
 module double()
@@ -51,9 +52,11 @@ module double()
     six_by_six();
     translate ([0, 5.5]) six_by_six();
 }
-translate ([0,0]) single();
-translate ([10,0]) small_plus_two();
-translate ([20,0]) single_plus_one();
-translate ([30,0]) single_plus_two();
-translate ([40,0]) double();
+step = 8;
+translate ([0*step,0]) small_single();
+translate ([1*step,0]) single();
+translate ([2*step,0]) small_plus_two();
+translate ([3*step,0]) single_plus_one();
+translate ([4*step,0]) single_plus_two();
+translate ([5*step,0]) double();
 
